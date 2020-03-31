@@ -628,6 +628,125 @@ paths:
             '*/*':
               schema:
                 type: object
+  /viewGraphs:
+    get:
+      tags:
+      - view-graph-controller
+      operationId: getViewGraphs
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: view
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViewGraph'
+    post:
+      tags:
+      - view-graph-controller
+      operationId: createUserViewGraphs
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewGraph'
+  /viewGraphs/{viewGraphId}:
+    get:
+      tags:
+      - view-graph-controller
+      operationId: getViewGraph
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: viewGraphId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewGraph'
+    post:
+      tags:
+      - view-graph-controller
+      operationId: editViewGraph
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: viewGraphId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ViewGraph'
+    delete:
+      tags:
+      - view-graph-controller
+      operationId: deleteUserViewGraph
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: viewGraphId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
 components:
   schemas:
     Device:
@@ -760,9 +879,6 @@ components:
     View:
       type: object
       properties:
-        viewId:
-          type: integer
-          format: int32
         name:
           type: string
         user:
@@ -771,12 +887,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ViewGraph'
+        viewId:
+          type: integer
+          format: int32
     ViewGraph:
       type: object
       properties:
         correlation:
-          type: integer
-          format: int32
+          type: string
+          enum:
+          - "NULL"
+          - COVARIANCE
+          - PEARSON
+          - SPEARMAN
         view:
           $ref: '#/components/schemas/View'
         sensor1:
