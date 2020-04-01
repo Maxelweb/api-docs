@@ -6,20 +6,6 @@ servers:
 - url: http://localhost:9999
   description: Generated server url
 paths:
-  /auth:
-    post:
-      tags:
-      - auth-controller
-      operationId: authentication
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
   /auth/tfa:
     post:
       tags:
@@ -45,6 +31,20 @@ paths:
       tags:
       - auth-controller
       operationId: telegramAuthentication
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+  /auth:
+    post:
+      tags:
+      - auth-controller
+      operationId: authentication
       responses:
         "200":
           description: default response
