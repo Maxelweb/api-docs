@@ -192,6 +192,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Entity'
+  /gateways:
+    get:
+      tags:
+      - gateway-controller
+      operationId: getGateways
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Gateway'
   /gateways/{gatewayId}:
     get:
       tags:
@@ -340,26 +360,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
-  /gateways:
-    get:
-      tags:
-      - gateway-controller
-      operationId: getGateways
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Gateway'
   /sensors:
     get:
       tags:
@@ -453,30 +453,6 @@ paths:
             '*/*':
               schema:
                 type: object
-  /users/{userid}/devices:
-    get:
-      tags:
-      - user-controller
-      operationId: getUserDevices
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: userid
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: object
   /users:
     get:
       tags:
@@ -538,6 +514,30 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User'
+  /users/{userid}/devices:
+    get:
+      tags:
+      - user-controller
+      operationId: getUserDevices
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: object
   /views:
     get:
       tags:
