@@ -20,6 +20,20 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
+  /auth/telegram:
+    post:
+      tags:
+      - auth-controller
+      operationId: telegramAuthentication
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
   /auth/tfa:
     post:
       tags:
@@ -31,20 +45,6 @@ paths:
         required: true
         schema:
           type: string
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
-  /auth/telegram:
-    post:
-      tags:
-      - auth-controller
-      operationId: telegramAuthentication
       responses:
         "200":
           description: default response
@@ -192,26 +192,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Entity'
-  /gateways:
-    get:
-      tags:
-      - gateway-controller
-      operationId: getGateways
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Gateway'
   /gateways/{gatewayId}:
     get:
       tags:
@@ -360,6 +340,26 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
+  /gateways:
+    get:
+      tags:
+      - gateway-controller
+      operationId: getGateways
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Gateway'
   /sensors:
     get:
       tags:
