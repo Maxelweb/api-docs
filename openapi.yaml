@@ -275,6 +275,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Entity'
+  /entities/{entityId}:
+    get:
+      tags:
+      - entity-controller
+      operationId: getEntity
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Entity'
   /gateways:
     get:
       tags:
@@ -286,6 +310,12 @@ paths:
         required: true
         schema:
           type: string
+      - name: deviceId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
       responses:
         "200":
           description: default response
@@ -799,7 +829,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ViewGraph'
-    post:
+    put:
       tags:
       - view-graph-controller
       operationId: editViewGraph
@@ -864,28 +894,6 @@ components:
         value:
           type: number
           format: double
-    Alert:
-      type: object
-      properties:
-        threshold:
-          type: number
-          format: double
-        type:
-          type: integer
-          format: int32
-        deleted:
-          type: boolean
-        entity:
-          $ref: '#/components/schemas/Entity'
-        sensor:
-          $ref: '#/components/schemas/Sensor'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        alertId:
-          type: integer
-          format: int32
     Device:
       type: object
       properties:
@@ -895,6 +903,9 @@ components:
           type: integer
           format: int32
         realDeviceId:
+          type: integer
+          format: int32
+        gateway:
           type: integer
           format: int32
         deviceId:
@@ -909,19 +920,15 @@ components:
           type: string
         deleted:
           type: boolean
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alert'
-        sensors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sensor'
         entityId:
+          type: integer
+          format: int32
+    Gateway:
+      type: object
+      properties:
+        name:
+          type: string
+        gatewayId:
           type: integer
           format: int32
     User:
@@ -950,15 +957,8 @@ components:
         deleted:
           type: boolean
         entity:
-          $ref: '#/components/schemas/Entity'
-        views:
-          type: array
-          items:
-            $ref: '#/components/schemas/View'
-        disabledAlerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alert'
+          type: integer
+          format: int32
         userId:
           type: integer
           format: int32
@@ -969,10 +969,6 @@ components:
           type: string
         user:
           $ref: '#/components/schemas/User'
-        viewGraphs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGraph'
         viewId:
           type: integer
           format: int32
@@ -987,23 +983,14 @@ components:
           - PEARSON
           - SPEARMAN
         view:
-          $ref: '#/components/schemas/View'
-        sensor1:
-          $ref: '#/components/schemas/Sensor'
-        sensor2:
-          $ref: '#/components/schemas/Sensor'
-        viewGraphId:
           type: integer
           format: int32
-    Gateway:
-      type: object
-      properties:
-        name:
-          type: string
-        devices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Device'
-        gatewayId:
+        sensor1:
+          type: integer
+          format: int32
+        sensor2:
+          type: integer
+          format: int32
+        viewGraphId:
           type: integer
           format: int32
