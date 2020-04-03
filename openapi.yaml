@@ -113,44 +113,18 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Sensor'
-  /devices:
+  /data/{sensorId}:
     get:
       tags:
-      - device-controller
-      operationId: getDevices
+      - data-controller
+      operationId: getLastSensorValue
       parameters:
       - name: Authorization
         in: header
         required: true
         schema:
           type: string
-      - name: entity
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Device'
-  /devices/{deviceId}:
-    get:
-      tags:
-      - device-controller
-      operationId: getDevice
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: deviceId
+      - name: sensorId
         in: path
         required: true
         schema:
@@ -162,7 +136,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Device'
+                $ref: '#/components/schemas/Sensor'
   /devices/{deviceId}/sensors:
     get:
       tags:
@@ -219,6 +193,56 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
+  /devices:
+    get:
+      tags:
+      - device-controller
+      operationId: getDevices
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entity
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+  /devices/{deviceId}:
+    get:
+      tags:
+      - device-controller
+      operationId: getDevice
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Device'
   /entities:
     get:
       tags:
@@ -829,32 +853,17 @@ components:
         time:
           type: string
           format: date-time
-        gatewayId:
+        gatewayName:
+          type: string
+        realDeviceId:
           type: integer
           format: int32
-        deviceId:
-          type: integer
-          format: int32
-        sensorId:
+        realSensorId:
           type: integer
           format: int32
         value:
           type: number
           format: double
-    Device:
-      type: object
-      properties:
-        name:
-          type: string
-        frequency:
-          type: integer
-          format: int32
-        realDeviceId:
-          type: integer
-          format: int32
-        deviceId:
-          type: integer
-          format: int32
     Alert:
       type: object
       properties:
@@ -875,6 +884,20 @@ components:
           items:
             $ref: '#/components/schemas/User'
         alertId:
+          type: integer
+          format: int32
+    Device:
+      type: object
+      properties:
+        name:
+          type: string
+        frequency:
+          type: integer
+          format: int32
+        realDeviceId:
+          type: integer
+          format: int32
+        deviceId:
           type: integer
           format: int32
     Entity:
