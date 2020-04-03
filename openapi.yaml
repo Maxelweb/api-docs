@@ -545,7 +545,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: object
+                $ref: '#/components/schemas/User'
   /users:
     get:
       tags:
