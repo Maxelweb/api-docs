@@ -6,6 +6,26 @@ servers:
 - url: http://localhost:9999
   description: Generated server url
 paths:
+  /auth:
+    post:
+      tags:
+      - auth-controller
+      operationId: authentication
+      parameters:
+      - name: X-Forwarded-For
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
   /auth/tfa:
     post:
       tags:
@@ -40,26 +60,6 @@ paths:
       - name: X-Forwarded-For
         in: header
         required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
-  /auth:
-    post:
-      tags:
-      - auth-controller
-      operationId: authentication
-      parameters:
-      - name: x-forwarded-for
-        in: header
-        required: false
         schema:
           type: string
       responses:
@@ -137,32 +137,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
-  /devices/{deviceId}/sensors:
-    get:
-      tags:
-      - device-controller
-      operationId: getSensorsByDevice
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: deviceId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Sensor'
   /devices/{deviceId}/sensor/{realSensorId}:
     get:
       tags:
@@ -243,6 +217,32 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Device'
+  /devices/{deviceId}/sensors:
+    get:
+      tags:
+      - device-controller
+      operationId: getSensorsByDevice
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
   /entities:
     get:
       tags:
