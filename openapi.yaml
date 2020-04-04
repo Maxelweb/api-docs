@@ -968,7 +968,8 @@ components:
         name:
           type: string
         user:
-          $ref: '#/components/schemas/User'
+          type: integer
+          format: int32
         viewId:
           type: integer
           format: int32
