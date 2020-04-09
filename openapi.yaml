@@ -878,6 +878,9 @@ components:
       properties:
         name:
           type: string
+        lastSent:
+          type: string
+          format: date-time
         gatewayId:
           type: integer
           format: int32
