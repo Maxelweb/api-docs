@@ -6,6 +6,132 @@ servers:
 - url: http://localhost:9999
   description: Generated server url
 paths:
+  /alerts:
+    get:
+      tags:
+      - alert-controller
+      operationId: getAlerts
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sensorId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Alert'
+    post:
+      tags:
+      - alert-controller
+      operationId: createAlert
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Alert'
+    delete:
+      tags:
+      - alert-controller
+      operationId: deleteAlerts
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: sensorId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
+  /alerts/{alertId}:
+    put:
+      tags:
+      - alert-controller
+      operationId: disableUserAlert
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: alertId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: enable
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+      - alert-controller
+      operationId: deleteAlert
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: alertId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
   /auth:
     post:
       tags:
@@ -288,42 +414,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Entity'
-  /gateways/{gatewayId}/devices/{realDeviceId}/sensors/{realSensorId}:
-    get:
-      tags:
-      - gateway-controller
-      operationId: getGatewaysDevicesSensor
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: gatewayId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: realDeviceId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: realSensorId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Sensor'
   /gateways:
     get:
       tags:
@@ -462,6 +552,42 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sensor'
+  /gateways/{gatewayId}/devices/{realDeviceId}/sensors/{realSensorId}:
+    get:
+      tags:
+      - gateway-controller
+      operationId: getGatewaysDevicesSensor
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: gatewayId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: realDeviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: realSensorId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sensor'
   /sensors:
     get:
       tags:
@@ -827,6 +953,32 @@ paths:
                 type: string
 components:
   schemas:
+    Alert:
+      type: object
+      properties:
+        threshold:
+          type: number
+          format: double
+        type:
+          type: string
+          enum:
+          - GREATER
+          - LOWER
+          - EQUAL
+        deleted:
+          type: boolean
+        entity:
+          type: integer
+          format: int32
+        sensor:
+          type: integer
+          format: int32
+        lastSent:
+          type: string
+          format: date-time
+        alertId:
+          type: integer
+          format: int32
     Sensor:
       type: object
       properties:
