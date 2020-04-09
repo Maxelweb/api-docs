@@ -81,7 +81,53 @@ paths:
               schema:
                 type: string
   /alerts/{alertId}:
+    get:
+      tags:
+      - alert-controller
+      operationId: getAlert
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: alertId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Alert'
     put:
+      tags:
+      - alert-controller
+      operationId: editAlert
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: alertId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Alert'
+    post:
       tags:
       - alert-controller
       operationId: disableUserAlert
@@ -93,6 +139,12 @@ paths:
           type: string
       - name: alertId
         in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: userId
+        in: query
         required: true
         schema:
           type: integer
@@ -358,6 +410,30 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
+  /entities/{entityId}:
+    get:
+      tags:
+      - entity-controller
+      operationId: getEntity
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Entity'
   /entities:
     get:
       tags:
@@ -390,30 +466,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Entity'
-  /entities/{entityId}:
-    get:
-      tags:
-      - entity-controller
-      operationId: getEntity
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: entityId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Entity'
   /gateways:
     get:
       tags:
