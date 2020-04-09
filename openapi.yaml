@@ -380,7 +380,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sensor'
-  /devices/{deviceId}/sensor/{realSensorId}:
+  /devices/{deviceId}/sensors/{realSensorId}:
     get:
       tags:
       - device-controller
