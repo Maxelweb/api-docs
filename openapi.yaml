@@ -698,6 +698,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sensor'
+  /sensors/{sensorId}:
+    get:
+      tags:
+      - sensor-controller
+      operationId: getSensor
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: sensorId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sensor'
   /users/{userid}:
     get:
       tags:
