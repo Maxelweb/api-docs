@@ -640,6 +640,38 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
+  /logs:
+    get:
+      tags:
+      - log-controller
+      operationId: getLogs
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
   /sensors:
     get:
       tags:
@@ -1088,6 +1120,21 @@ components:
         gatewayId:
           type: integer
           format: int32
+    Log:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        userId:
+          type: integer
+          format: int32
+        ipAddr:
+          type: string
+        operation:
+          type: string
+        data:
+          type: string
     User:
       type: object
       properties:
