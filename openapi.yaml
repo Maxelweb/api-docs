@@ -728,6 +728,11 @@ paths:
       - user-controller
       operationId: user
       parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
       - name: userid
         in: path
         required: true
@@ -740,7 +745,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/User'
+                type: string
     put:
       tags:
       - user-controller
