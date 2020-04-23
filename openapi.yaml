@@ -640,6 +640,30 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
+  /gateways/config:
+    put:
+      tags:
+      - gateway-controller
+      operationId: sendGatewayConfigToKafka
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListenableFutureSendResultStringString'
   /logs:
     get:
       tags:
@@ -1175,6 +1199,13 @@ components:
         gatewayId:
           type: integer
           format: int32
+    ListenableFutureSendResultStringString:
+      type: object
+      properties:
+        cancelled:
+          type: boolean
+        done:
+          type: boolean
     Log:
       type: object
       properties:
