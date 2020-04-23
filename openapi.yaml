@@ -1202,9 +1202,9 @@ components:
     ListenableFutureSendResultStringString:
       type: object
       properties:
-        cancelled:
-          type: boolean
         done:
+          type: boolean
+        cancelled:
           type: boolean
     Log:
       type: object
