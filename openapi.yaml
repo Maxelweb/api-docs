@@ -330,6 +330,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Device'
+    post:
+      tags:
+      - device-controller
+      operationId: createDevice
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Device'
   /devices/{deviceId}:
     get:
       tags:
@@ -354,6 +371,52 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Device'
+    put:
+      tags:
+      - device-controller
+      operationId: editDevice
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Device'
+    delete:
+      tags:
+      - device-controller
+      operationId: deleteDevice
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
   /devices/{deviceId}/sensors:
     get:
       tags:
@@ -380,6 +443,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sensor'
+    post:
+      tags:
+      - device-controller
+      operationId: createSensor
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sensor'
   /devices/{deviceId}/sensors/{realSensorId}:
     get:
       tags:
@@ -410,6 +496,64 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
+    put:
+      tags:
+      - device-controller
+      operationId: editSensor
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: realSensorId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sensor'
+    delete:
+      tags:
+      - device-controller
+      operationId: deleteSensor
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: realSensorId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
   /entities:
     get:
       tags:
@@ -696,6 +840,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Log'
+  /sensors/{sensorId}:
+    get:
+      tags:
+      - sensor-controller
+      operationId: getSensor
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: sensorId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sensor'
   /sensors:
     get:
       tags:
@@ -722,30 +890,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sensor'
-  /sensors/{sensorId}:
-    get:
-      tags:
-      - sensor-controller
-      operationId: getSensor
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: sensorId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Sensor'
   /stats:
     get:
       tags:
