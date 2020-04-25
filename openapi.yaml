@@ -586,6 +586,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Entity'
+    post:
+      tags:
+      - entity-controller
+      operationId: addEntity
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Entity'
   /entities/{entityId}:
     get:
       tags:
@@ -610,6 +627,52 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Entity'
+    put:
+      tags:
+      - entity-controller
+      operationId: editEntity
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Entity'
+    delete:
+      tags:
+      - entity-controller
+      operationId: deleteEntity
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
   /gateways:
     get:
       tags:
@@ -840,30 +903,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Log'
-  /sensors/{sensorId}:
-    get:
-      tags:
-      - sensor-controller
-      operationId: getSensor
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: sensorId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Sensor'
   /sensors:
     get:
       tags:
@@ -890,6 +929,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sensor'
+  /sensors/{sensorId}:
+    get:
+      tags:
+      - sensor-controller
+      operationId: getSensor
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: sensorId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sensor'
   /stats:
     get:
       tags:
