@@ -910,7 +910,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
-  /gateways/config:
+  /gateways/config/{gatewayId}:
     put:
       tags:
       - gateway-controller
@@ -921,12 +921,12 @@ paths:
         required: true
         schema:
           type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
+      - name: gatewayId
+        in: path
         required: true
+        schema:
+          type: integer
+          format: int32
       responses:
         "200":
           description: default response
