@@ -554,6 +554,31 @@ paths:
             '*/*':
               schema:
                 type: string
+  /devices/cmdEnabled/{cmdEnabled}:
+    get:
+      tags:
+      - device-controller
+      operationId: getDevicesWithAtLeastOneCmdEnabled
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cmdEnabled
+        in: path
+        required: true
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
   /entities:
     get:
       tags:
@@ -910,11 +935,35 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Sensor'
-  /gateways/config/{gatewayId}:
+  /gateways/command/{gatewayId}:
     put:
       tags:
       - gateway-controller
       operationId: sendGatewayConfigToKafka
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: gatewayId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
+  /gateways/config/{gatewayId}:
+    put:
+      tags:
+      - gateway-controller
+      operationId: sendGatewayConfigToKafka_1
       parameters:
       - name: Authorization
         in: header
