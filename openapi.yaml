@@ -6,80 +6,6 @@ servers:
 - url: http://localhost:9999
   description: Generated server url
 paths:
-  /alerts:
-    get:
-      tags:
-      - alert-controller
-      operationId: getAlerts
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: entityId
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      - name: sensorId
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: object
-                additionalProperties:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Alert'
-    post:
-      tags:
-      - alert-controller
-      operationId: createAlert
-      parameters:
-      - name: authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Alert'
-    delete:
-      tags:
-      - alert-controller
-      operationId: deleteAlerts
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: sensorId
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: string
   /alerts/{alertId}:
     get:
       tags:
@@ -173,6 +99,80 @@ paths:
           type: string
       - name: alertId
         in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: string
+  /alerts:
+    get:
+      tags:
+      - alert-controller
+      operationId: getAlerts
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sensorId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Alert'
+    post:
+      tags:
+      - alert-controller
+      operationId: createAlert
+      parameters:
+      - name: authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Alert'
+    delete:
+      tags:
+      - alert-controller
+      operationId: deleteAlerts
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: sensorId
+        in: query
         required: true
         schema:
           type: integer
