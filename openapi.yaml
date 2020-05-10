@@ -683,6 +683,49 @@ paths:
             '*/*':
               schema:
                 type: string
+  /gateways:
+    get:
+      tags:
+      - gateway-controller
+      operationId: getGateways
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Gateway'
+    post:
+      tags:
+      - gateway-controller
+      operationId: addGateway
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Gateway'
   /gateways/{gatewayId}:
     get:
       tags:
@@ -753,49 +796,6 @@ paths:
             '*/*':
               schema:
                 type: string
-  /gateways:
-    get:
-      tags:
-      - gateway-controller
-      operationId: getGateways
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: deviceId
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Gateway'
-    post:
-      tags:
-      - gateway-controller
-      operationId: addGateway
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Gateway'
   /gateways/{gatewayId}/devices:
     get:
       tags:
