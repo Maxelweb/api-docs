@@ -257,7 +257,7 @@ paths:
         schema:
           type: integer
           format: int32
-      - name: entity
+      - name: entityId
         in: query
         required: false
         schema:
@@ -575,13 +575,13 @@ paths:
         required: true
         schema:
           type: string
-      - name: sensor
+      - name: sensorId
         in: query
         required: false
         schema:
           type: integer
           format: int32
-      - name: user
+      - name: userId
         in: query
         required: false
         schema:
@@ -963,7 +963,7 @@ paths:
         required: true
         schema:
           type: string
-      - name: entity
+      - name: entityId
         in: query
         required: false
         schema:
@@ -1129,7 +1129,7 @@ paths:
         required: true
         schema:
           type: string
-      - name: entity
+      - name: entityId
         in: query
         required: false
         schema:
@@ -1141,7 +1141,7 @@ paths:
         schema:
           type: integer
           format: int32
-      - name: view
+      - name: viewId
         in: query
         required: false
         schema:
@@ -1285,13 +1285,13 @@ paths:
         required: true
         schema:
           type: string
-      - name: user
+      - name: userId
         in: query
         required: false
         schema:
           type: integer
           format: int32
-      - name: view
+      - name: viewId
         in: query
         required: false
         schema:
