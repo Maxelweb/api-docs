@@ -726,6 +726,74 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Gateway'
+  /gateways/{gatewayId}/devices/{realDeviceId}/sensors:
+    get:
+      tags:
+      - gateway-controller
+      operationId: getGatewaysDevicesSensors
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: gatewayId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: realDeviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
+  /gateways/{gatewayId}/devices/{realDeviceId}/sensors/{realSensorId}:
+    get:
+      tags:
+      - gateway-controller
+      operationId: getGatewaysDevicesSensor
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: gatewayId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: realDeviceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: realSensorId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sensor'
   /gateways/{gatewayId}:
     get:
       tags:
@@ -852,74 +920,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Device'
-  /gateways/{gatewayId}/devices/{realDeviceId}/sensors:
-    get:
-      tags:
-      - gateway-controller
-      operationId: getGatewaysDevicesSensors
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: gatewayId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: realDeviceId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Sensor'
-  /gateways/{gatewayId}/devices/{realDeviceId}/sensors/{realSensorId}:
-    get:
-      tags:
-      - gateway-controller
-      operationId: getGatewaysDevicesSensor
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: gatewayId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: realDeviceId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: realSensorId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Sensor'
   /logs:
     get:
       tags:
@@ -952,32 +952,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Log'
-  /sensors:
-    get:
-      tags:
-      - sensor-controller
-      operationId: getSensors
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: entityId
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: default response
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Sensor'
   /sensors/{sensorId}:
     get:
       tags:
@@ -1025,6 +999,32 @@ paths:
             '*/*':
               schema:
                 type: string
+  /sensors:
+    get:
+      tags:
+      - sensor-controller
+      operationId: getSensors
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
   /stats:
     get:
       tags:
