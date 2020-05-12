@@ -398,7 +398,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Device'
+                type: string
     delete:
       tags:
       - device-controller
