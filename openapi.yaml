@@ -1171,12 +1171,6 @@ paths:
         required: true
         schema:
           type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
       responses:
         "200":
           description: default response
@@ -1214,12 +1208,6 @@ paths:
         required: true
         schema:
           type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
       responses:
         "200":
           description: default response
