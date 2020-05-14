@@ -1767,50 +1767,6 @@ paths:
           description: Server error
           content:
             application/json: {}
-  /sensors:
-    get:
-      tags:
-      - sensor-controller
-      summary: Get sensors
-      description: The request return a list of sensors
-      operationId: getSensors
-      parameters:
-      - name: Authorization
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: entityId
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: The request is successful
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Sensor'
-        "400":
-          description: There is an error in the request
-          content:
-            application/json: {}
-        "401":
-          description: The authentication failed
-          content:
-            application/json: {}
-        "403":
-          description: Not authorized
-          content:
-            application/json: {}
-        "500":
-          description: Server error
-          content:
-            application/json: {}
   /sensors/{sensorId}:
     get:
       tags:
@@ -1883,6 +1839,50 @@ paths:
                   realSensorId: int
                   realDeviceId: int
                   data: int
+        "400":
+          description: There is an error in the request
+          content:
+            application/json: {}
+        "401":
+          description: The authentication failed
+          content:
+            application/json: {}
+        "403":
+          description: Not authorized
+          content:
+            application/json: {}
+        "500":
+          description: Server error
+          content:
+            application/json: {}
+  /sensors:
+    get:
+      tags:
+      - sensor-controller
+      summary: Get sensors
+      description: The request return a list of sensors
+      operationId: getSensors
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: The request is successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
         "400":
           description: There is an error in the request
           content:
