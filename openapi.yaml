@@ -218,7 +218,7 @@ paths:
                     enabled:
                     - threshold: double
                       type: 0 | 1 | 2
-                      deleted: true | false
+                      deleted: boolean
                       entity: int
                       sensor: int
                       lastSent: timestamp
@@ -226,7 +226,7 @@ paths:
                     disabled:
                     - threshold: double
                       type: 0 | 1 | 2
-                      deleted: true | false
+                      deleted: boolean
                       entity: int
                       sensor: int
                       lastSent: timestamp
@@ -343,8 +343,8 @@ paths:
                       type: USER|MOD|ADMIN
                       telegramName: string
                       telegramChat: string
-                      tfa: true|false
-                      deleted: true|false
+                      tfa: boolean
+                      deleted: boolean
                       entity: int
                       userId: int
                 Tfa needed:
@@ -353,6 +353,45 @@ paths:
                   value:
                     token: string
                     tfa: "true"
+        "400":
+          description: There is an error in the request
+          content:
+            application/json: {}
+        "401":
+          description: The authentication failed
+          content:
+            application/json: {}
+        "403":
+          description: Not authorized
+          content:
+            application/json: {}
+        "500":
+          description: Server error
+          content:
+            application/json: {}
+  /auth/telegram:
+    post:
+      tags:
+      - auth-controller
+      summary: Telegram authentication
+      description: The request for get the authentication token used for other requests
+        for telegram
+      operationId: telegramAuthentication
+      responses:
+        "200":
+          description: 'The request is successful. It returns as code: <br/>"0" -
+            the telegramName is not associated with anybody<br/>"1" - the telegramName
+            is associated with somebody and the telegramChat will be setted<br/>"2"
+            - the telegramName is associated with somebody and the telegramChat is
+            present and the same as the request'
+          content:
+            application/json:
+              examples:
+                Success:
+                  description: Success
+                  value:
+                    token: string
+                    code: 0 | 1 | 2
         "400":
           description: There is an error in the request
           content:
@@ -401,49 +440,10 @@ paths:
                       type: USER|MOD|ADMIN
                       telegramName: string
                       telegramChat: string
-                      tfa: true|false
-                      deleted: true|false
+                      tfa: boolean
+                      deleted: boolean
                       entity: int
                       userId: int
-        "400":
-          description: There is an error in the request
-          content:
-            application/json: {}
-        "401":
-          description: The authentication failed
-          content:
-            application/json: {}
-        "403":
-          description: Not authorized
-          content:
-            application/json: {}
-        "500":
-          description: Server error
-          content:
-            application/json: {}
-  /auth/telegram:
-    post:
-      tags:
-      - auth-controller
-      summary: Telegram authentication
-      description: The request for get the authentication token used for other requests
-        for telegram
-      operationId: telegramAuthentication
-      responses:
-        "200":
-          description: 'The request is successful. It returns as code: <br/>"0" -
-            the telegramName is not associated with anybody<br/>"1" - the telegramName
-            is associated with somebody and the telegramChat will be setted<br/>"2"
-            - the telegramName is associated with somebody and the telegramChat is
-            present and the same as the request'
-          content:
-            application/json:
-              examples:
-                Success:
-                  description: Success
-                  value:
-                    token: string
-                    code: 0 | 1 | 2
         "400":
           description: There is an error in the request
           content:
@@ -1564,7 +1564,7 @@ paths:
       - gateway-controller
       summary: Get device
       description: The request returns the device with the specified realDeviceId
-        if it is connected tothe gateway with the specified gatewayId and if it is
+        if it is connected to the gateway with the specified gatewayId and if it is
         visible for the current user
       operationId: getGatewaysDevice
       parameters:
